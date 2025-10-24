@@ -26,7 +26,7 @@ exports.RaveLevel = class RaveLevel extends ManyLevelGuest {
 
     this[kLocation] = path.resolve(location)
     this[kSocketPath] = socketPath(this[kLocation])
-    this[kOptions] = { keyEncoding, valueEncoding }
+    this[kOptions] = options
     this[kConnect] = this[kConnect].bind(this)
     this[kDestroy] = this[kDestroy].bind(this)
 
