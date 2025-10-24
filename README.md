@@ -24,11 +24,13 @@ const db = new RaveLevel('./db')
 
 ### `db = new RaveLevel(location[, options])`
 
-The `location` argument is the same as in [`classic-level`](https://github.com/Level/classic-level), making `rave-level` a drop-in replacement for when you need to read and write to the given `location` from multiple processes simultaneously. However, the `options` are different and limited because not every `RaveLevel` instance has direct access to the underlying LevelDB database. The `options` object may contain:
+The `location` argument is the same as in [`classic-level`](https://github.com/Level/classic-level), making `rave-level` a drop-in replacement for when you need to read and write to the given `location` from multiple processes simultaneously. The `options` object may contain:
 
 - `keyEncoding` (string or object, default `'utf8'`): [encoding](https://github.com/Level/abstract-level#encodings) to use for keys
 - `valueEncoding` (string or object, default `'utf8'`): encoding to use for values
 - `retry` (boolean, default `true`): if true, operations are retried upon connecting to a new leader. This disables [snapshot guarantees](https://github.com/Level/abstract-level#iterator) because retries may implicitly use new snapshots. If false, operations are aborted upon disconnect, which means to yield an error on e.g. `db.get()`.
+
+Additionnaly, all the options accepted by [`classic-level`](https://github.com/Level/classic-level#db--new-classiclevellocation-options) are also accepted by `rave-level` but will only have an effect for the leader instance.
 
 The `RaveLevel` class extends `AbstractLevel` and thus follows the public API of [`abstract-level`](https://github.com/Level/abstract-level). As such, the rest of the API is documented in `abstract-level`. The database opens itself but (unlike other `abstract-level` implementations) cannot be re-opened once `db.close()` has been called. Calling `db.open()` would then yield a [`LEVEL_NOT_SUPPORTED`](https://github.com/Level/abstract-level#errors) error.
 

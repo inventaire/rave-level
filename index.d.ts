@@ -1,4 +1,5 @@
-import { AbstractLevel, AbstractDatabaseOptions } from 'abstract-level'
+import { AbstractLevel } from 'abstract-level'
+import { DatabaseOptions as ClassicLevelDatabaseOptions } from 'classic-level'
 
 /**
  * Use a [LevelDB](https://github.com/google/leveldb) database from multiple processes
@@ -26,7 +27,7 @@ export class RaveLevel<KDefault = string, VDefault = string>
  * Options for the {@link RaveLevel} constructor.
  */
 declare interface DatabaseOptions<K, V> extends
-  Omit<AbstractDatabaseOptions<K, V>, 'createIfMissing' | 'errorIfExists'> {
+  ClassicLevelDatabaseOptions<K, V> {
   /**
    * If true, operations are retried upon connecting to a new leader. If false,
    * operations are aborted upon disconnect, which means to yield an error on e.g.
